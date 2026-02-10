@@ -1,8 +1,11 @@
-"use client"
-
 import { useEffect, useRef, useState } from "react"
+import CustomCursor from "./CustomCursor"
 
-export default function BackgroundCanvas() {
+interface BackgroundProps {
+  isChaos?: boolean;
+}
+
+export function Background({ isChaos }: BackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
@@ -41,7 +44,7 @@ export default function BackgroundCanvas() {
       window.removeEventListener("resize", handleResize)
       cancelAnimationFrame(animationFrameRef.current)
     }
-  }, []) // Removed dependencies
+  }, [])
 
   // Draw canvas when dimensions or mouse position changes
   useEffect(() => {
@@ -95,7 +98,12 @@ export default function BackgroundCanvas() {
     return () => {
       cancelAnimationFrame(animationFrameRef.current)
     }
-  }, [dimensions, mousePos]) // Removed imageRef dependency
+  }, [dimensions, mousePos])
 
-  return <canvas ref={canvasRef} className="absolute inset-0 h-full w-full object-cover" />
+  return (
+    <>
+      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full object-cover pointer-events-none" style={{ zIndex: 0 }} />
+      <CustomCursor />
+    </>
+  )
 }

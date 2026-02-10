@@ -7,6 +7,7 @@ import { StatusLEDs } from './components/StatusLEDs';
 import { FlipCardWall } from './components/FlipCardWall';
 import { ConsolePeek, useConsoleLog } from './components/ConsolePeek';
 import { Sparkles } from 'lucide-react';
+import { Background } from './components/Background';
 
 function App() {
   return (
@@ -22,9 +23,10 @@ function AppContent() {
 
   return (
     <div className={isChaos ? 'chaos-mode' : ''}>
+      <Background isChaos={isChaos} />
       <TopBar />
 
-      <main className="min-h-screen pt-20 pb-12 px-4 md:px-8">
+      <main className="min-h-screen pt-20 pb-12 px-4 md:px-8 relative z-10">
         <div className="max-w-7xl mx-auto space-y-8">
           <HeroSection isChaos={isChaos} />
 
